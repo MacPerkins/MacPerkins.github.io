@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Coiny&family=Playfair+Display&family=Ubuntu+Condensed&display=swap');
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: "Coiny", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3rem;
+}
+
+.WDD-330 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15rem;
+    height: 15rem;
+    background-color: rgb(0, 153, 255);
+    border-radius: 50%;
+    animation: myanima 3s infinite;
+    font-weight: bolder;
+}
+
+@keyframes myanima {
+    0% {
+        transform: rotate(0deg);
+    }
+    5% {
+        transform: rotate(360deg);
+        background-color: blue;
+    }
+    18% {
+        transform: rotate(360deg) translateX(500px);
+        background-color: aqua;
+    }
+    33% {
+        transform: rotate(360deg) translateX(-600px);
+    }
+    50% {
+        transform: rotate(360deg) translateX(-600px);
+    }
+    66% {
+        transform: rotate(360deg) translateY(-400px) scale(2);
+        background-color: blue;
+    }
+    80% {
+        transform: rotate(360deg) translateY(0);
+        background-color: lightseagreen;
+    }
+    95% {
+        transform: rotate(720deg);
+    }
+    100% {
+        transform: rotate(720deg);
+    }
+}
