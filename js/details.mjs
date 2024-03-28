@@ -1,25 +1,3 @@
-// const baseURL = "https://swapi.py4e.com/api/";
-// const planetsURL = baseURL + "planets/1/";
-
-// fetch(planetsURL)
-//     .then(response => {
-//     // Check if the response is successful
-//     if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//     }
-//     // Parse the response body as JSON
-//     return response.json();
-//     })
-//     .then(data => {
-//     // Log the parsed JSON data
-//     console.log(data);
-//     // Now you can work with the JSON data
-//     })
-//     .catch(error => {
-//     // Handle any errors that occurred during the fetch operation
-//     console.error('Error fetching data:', error);
-// });
-
 const baseURL = "https://swapi.py4e.com/api/";
 
 // Function to fetch data from a specific endpoint
