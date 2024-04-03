@@ -43,7 +43,7 @@ a {
     color: white;
 }
 
-.hero {
+.hero, .filter {
     background-color: #14213D;
     color: white;
     padding: 1em;
@@ -51,6 +51,7 @@ a {
     text-align: center;
     position: relative;
 }
+
 
 .hero-text {
     position: absolute;
@@ -70,6 +71,7 @@ a {
     list-style-type: none;
     padding: 0;
     justify-items: center;
+    color: black;
 }
 
 .archive-grid ul li, .archive-grid ul li h3 a {
