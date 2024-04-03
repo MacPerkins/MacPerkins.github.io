@@ -64,13 +64,12 @@ a {
 }
 
 .group-list {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
     list-style-type: none;
     padding: 0;
-
+    justify-items: center;
 }
 
 .archive-grid ul li, .archive-grid ul li h3 a {
@@ -80,13 +79,19 @@ a {
     color: #000;
 }
 
+.group-card a h2 {
+    color: black;
+}
+
 .group-card {
+    color: #000;
     background-color: #f0f0f0;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
-    max-width: calc(33.33% - 40px); /* Adjusted max-width to include padding */
+    width: 300px;
     text-align: center;
+    text-decoration: none;
 }
 
 .group-card h3 {
@@ -99,4 +104,10 @@ a {
 
 main {
     font-family: "Tenor Sans", sans-serif;
+}
+
+@media (max-width: 767px) {
+    .group-list {
+        grid-template-columns: 1fr;
+    }
 }
