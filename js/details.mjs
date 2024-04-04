@@ -259,13 +259,13 @@ export function fetchGroupData(groupURL, processDataFunction) {
         });
 }
 
-// // Function to get URL parameter by name
-// export function getUrlParameter(name) {
-//     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-//     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-//     var results = regex.exec(location.search);
-//     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-// }
+// Function to get URL parameter by name
+export function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
 
 // Get the value of the 'type' parameter from the URL
 const type = getUrlParameter('type');
@@ -307,20 +307,31 @@ export function fetchAllData() {
     return Promise.all(fetchPromises);
 }
 
-// Function to get URL parameter by name
-export function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+// Add an event listener to the "Sort by Name" button
+let ascendingOrder = true; // Track the current sorting order
+document.getElementById('sortByName').addEventListener('click', function() {
+    // Call the sortAllData function to sort all results alphabetically by name
+    sortAllData();
+});
+
+// Function to sort all results alphabetically by name
+function sortAllData() {
+    const container = document.getElementById('group-container');
+    const cards = Array.from(container.querySelectorAll('.group-card'));
+
+    // Sort the cards alphabetically by name
+    cards.sort((a, b) => {
+        const nameA = a.querySelector('h2').textContent;
+        const nameB = b.querySelector('h2').textContent;
+        return ascendingOrder ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
+
+    // Reorder the cards in the container
+    cards.forEach(card => container.appendChild(card));
+
+    // Toggle the sorting order for the next click
+    ascendingOrder = !ascendingOrder;
 }
-
-
-
-// Example usage: Searching for the keyword "Luke"
-// const keyword = "Luke";
-// searchAllData(keyword);
-
 
 // Call the function to fetch all data
 fetchAllData();
