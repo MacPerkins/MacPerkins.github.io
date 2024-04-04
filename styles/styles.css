@@ -35,7 +35,7 @@ body {
 
 .sub-header div {
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
 }
 
 a {
@@ -52,6 +52,26 @@ a {
     position: relative;
 }
 
+.filter h2, #group-title, .archive-search h2 {
+    font-size: 2.25rem;
+}
+
+#searchForm {
+    margin: 1rem;
+}
+
+#searchForm input, #searchForm button {
+    font-size: 1.75rem;
+}
+
+.sorting button {
+    font-size: 1.75rem;
+    margin: 1rem;
+}
+
+.group-card h2, .group-card h3 {
+    font-size: 1.75rem;
+}
 
 .hero-text {
     position: absolute;
@@ -94,6 +114,7 @@ a {
     width: 300px;
     text-align: center;
     text-decoration: none;
+    font-size: 1.25rem;
 }
 
 .group-card h3 {

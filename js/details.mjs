@@ -1,7 +1,7 @@
 const baseURL = "https://swapi.py4e.com/api/";
 
 // Function to fetch data from a specific endpoint
-function fetchData(endpoint) {
+export function fetchData(endpoint) {
     return fetch(endpoint)
         .then(response => {
             if (!response.ok) {
@@ -15,9 +15,13 @@ function fetchData(endpoint) {
 }
 
 // Function to generate character cards with links to detail page
-function generateCharacterCards(characters) {
+export function generateCharacterCards(characters) {
     const container = document.getElementById('group-container');
-    document.getElementById('group-title').innerHTML = "Characters";
+    const title = document.getElementById('group-title');
+    if (title) {
+        title.innerHTML = "Characters";
+    }
+    // document.getElementById('group-title').innerHTML = "Characters";
     
     // Iterate over each character
     characters.forEach(character => {
@@ -42,9 +46,13 @@ function generateCharacterCards(characters) {
     });
 }
 
-function generateFilmCards(films) {
+export function generateFilmCards(films) {
     const container = document.getElementById('group-container');
-    document.getElementById('group-title').innerHTML = "Films";
+    const title = document.getElementById('group-title');
+    if (title) {
+        title.innerHTML = "Films";
+    }
+    // document.getElementById('group-title').innerHTML = "Films";
     
     // Iterate over each character
     films.forEach(film => {
@@ -65,9 +73,13 @@ function generateFilmCards(films) {
     });
 }
 
-function generatePlanetCards(planets) {
+export function generatePlanetCards(planets) {
     const container = document.getElementById('group-container');
-    document.getElementById('group-title').innerHTML = "Planets";
+    const title = document.getElementById('group-title');
+    if (title) {
+        title.innerHTML = "Planets";
+    }
+    // document.getElementById('group-title').innerHTML = "Planets";
     
     // Iterate over each character
     planets.forEach(planet => {
@@ -91,9 +103,13 @@ function generatePlanetCards(planets) {
     });
 }
 
-function generateSpeciesCards(species) {
+export function generateSpeciesCards(species) {
     const container = document.getElementById('group-container');
-    document.getElementById('group-title').innerHTML = "Species";
+    const title = document.getElementById('group-title');
+    if (title) {
+        title.innerHTML = "Species";
+    }
+    // document.getElementById('group-title').innerHTML = "Species";
     
     // Iterate over each character
     species.forEach(specie => {
@@ -115,9 +131,13 @@ function generateSpeciesCards(species) {
     });
 }
 
-function generateStarshipCards(starships) {
+export function generateStarshipCards(starships) {
     const container = document.getElementById('group-container');
-    document.getElementById('group-title').innerHTML = "Starships";
+    const title = document.getElementById('group-title');
+    if (title) {
+        title.innerHTML = "Starships";
+    }
+    // document.getElementById('group-title').innerHTML = "Starships";
     
     // Iterate over each character
     starships.forEach(starship => {
@@ -142,9 +162,13 @@ function generateStarshipCards(starships) {
     });
 }
 
-function generateVehicleCards(vehicles) {
+export function generateVehicleCards(vehicles) {
     const container = document.getElementById('group-container');
-    document.getElementById('group-title').innerHTML = "Vehicles";
+    const title = document.getElementById('group-title');
+    if (title) {
+        title.innerHTML = "Vehicles";
+    }
+    // document.getElementById('group-title').innerHTML = "Vehicles";
     
     // Iterate over each character
     vehicles.forEach(vehicle => {
@@ -169,85 +193,79 @@ function generateVehicleCards(vehicles) {
     });
 }
 
+
+
 // Function to fetch character data
-function fetchCharacterData() {
+export function fetchCharacterData() {
     const charactersURL = baseURL + "people/";
     fetchGroupData(charactersURL, generateCharacterCards);
 }
 
 // Function to fetch film data
-function fetchFilmData() {
+export function fetchFilmData() {
     const filmsURL = baseURL + "films/";
     fetchGroupData(filmsURL, generateFilmCards);
 }
 
 // Function to fetch planet data
-function fetchPlanetData() {
+export function fetchPlanetData() {
     const planetsURL = baseURL + "planets/";
     fetchGroupData(planetsURL, generatePlanetCards);
 }
 
 // Function to fetch species data
-function fetchSpeciesData() {
+export function fetchSpeciesData() {
     const speciesURL = baseURL + "species/";
     fetchGroupData(speciesURL, generateSpeciesCards);
 }
 
 // Function to fetch starship data
-function fetchStarshipData() {
+export function fetchStarshipData() {
     const starshipsURL = baseURL + "starships/";
     fetchGroupData(starshipsURL, generateStarshipCards);
 }
 
 // Function to fetch vehicle data
-function fetchVehicleData() {
+export function fetchVehicleData() {
     const vehiclesURL = baseURL + "vehicles/";
     fetchGroupData(vehiclesURL, generateVehicleCards);
 }
 
 // Function to fetch data for a specific group and process it
-function fetchGroupData(groupURL, processDataFunction) {
-    // Array to store promises for each fetch operation
-    const fetchPromises = [];
-
+export function fetchGroupData(groupURL, processDataFunction) {
     // Fetch the first page to determine the total number of pages
-    fetchPromises.push(fetchData(groupURL));
-
-    // Resolve the first promise to get the total number of pages
-    Promise.all(fetchPromises)
-        .then(([firstPage]) => {
+    return fetchData(groupURL)
+        .then(firstPage => {
             const totalPages = Math.ceil(firstPage.count / firstPage.results.length);
+            const fetchPromises = [Promise.resolve(firstPage)];
 
-            // Generate promises to fetch data from each page
+            // Generate promises to fetch data from each page (excluding the first page)
             for (let page = 2; page <= totalPages; page++) {
                 fetchPromises.push(fetchData(`${groupURL}?page=${page}`));
             }
 
             // Resolve all promises concurrently
-            Promise.all(fetchPromises)
-                .then(pagesData => {
-                    // Combine results from all pages into a single array
-                    const allData = pagesData.reduce((acc, page) => acc.concat(page.results), []);
+            return Promise.all(fetchPromises);
+        })
+        .then(pagesData => {
+            // Combine results from all pages into a single array
+            const allData = pagesData.reduce((acc, page) => acc.concat(page.results), []);
 
-                    // Process the data using the provided function
-                    processDataFunction(allData);
-                })
-                .catch(error => {
-                    console.error(`Error fetching ${groupURL} data:`, error);
-                });
+            // Process the data using the provided function
+            processDataFunction(allData);
         })
         .catch(error => {
             console.error(`Error fetching ${groupURL} data:`, error);
         });
 }
 
-// Function to get URL parameter by name
-function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}
+// // Function to get URL parameter by name
+// export function getUrlParameter(name) {
+//     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+//     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+//     var results = regex.exec(location.search);
+//     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+// }
 
 // Get the value of the 'type' parameter from the URL
 const type = getUrlParameter('type');
@@ -264,12 +282,9 @@ if (type === 'characters') {
     fetchStarshipData();
 } else if (type === 'vehicles') {
     fetchVehicleData();
-} else {
-    console.error('Invalid type parameter:', type);
 }
 
-// Function to fetch all data from all endpoints
-function fetchAllData() {
+export function fetchAllData() {
     const endpoints = [
         'films',
         'people',
@@ -288,18 +303,24 @@ function fetchAllData() {
         fetchPromises.push(fetchData(url));
     });
 
-    // // Resolve all promises concurrently
-    // return Promise.all(fetchPromises)
-    //     .then(dataArray => {
-    //         // Log the parsed JSON data for each endpoint
-    //         dataArray.forEach((data, index) => {
-    //             console.log(`Data from ${endpoints[index]}:`, data);
-    //         });
-    //     })
-    //     .catch(error => {
-    //         console.error('Error fetching all data:', error);
-    //     });
+    // Return a promise that resolves when all fetch operations are complete
+    return Promise.all(fetchPromises);
 }
+
+// Function to get URL parameter by name
+export function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+
+
+// Example usage: Searching for the keyword "Luke"
+// const keyword = "Luke";
+// searchAllData(keyword);
+
 
 // Call the function to fetch all data
 fetchAllData();
