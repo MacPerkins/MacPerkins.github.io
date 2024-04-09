@@ -1,4 +1,4 @@
-import { fetchAllData, fetchCharacterData, generateCharacterCards, fetchFilmData, generateFilmCards, fetchPlanetData, generatePlanetCards, fetchSpeciesData, generateSpeciesCards, fetchStarshipData, generateStarshipCards, fetchVehicleData, generateVehicleCards, getUrlParameter } from "./details.mjs";
+import { fetchAllData, generateCharacterCards, generateFilmCards, generatePlanetCards, generateSpeciesCards, generateStarshipCards, generateVehicleCards } from "./details.mjs";
 
 function searchAllData(keyword) {
     const container = document.getElementById('group-container');
