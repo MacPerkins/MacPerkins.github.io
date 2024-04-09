@@ -129,6 +129,45 @@ main {
     font-family: "Tenor Sans", sans-serif;
 }
 
+#searchInput:focus {
+    border: 10px solid white;
+}
+
+/* This is for the page links growth */
+@keyframes enlargeText {
+    0% {
+        font-size: 1em;
+    }
+    100% {
+        font-size: 2rem;
+    }
+}
+
+@keyframes spinOnce {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* This is for the sort button spinning */
+#sortByName.spin {
+    animation: spinOnce 1s linear;
+}
+
+/* Apply animation to search links */
+.search-link {
+    animation: enlargeText 0.3s ease forwards;
+}
+
+/* Add hover effect */
+.search-link:hover {
+    animation: none;
+    font-size: 1.2em;
+}
+
 @media (max-width: 767px) {
     .group-list {
         grid-template-columns: 1fr;

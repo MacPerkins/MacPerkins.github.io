@@ -311,6 +311,10 @@ export function fetchAllData() {
 let ascendingOrder = true; // Track the current sorting order
 document.getElementById('sortByName').addEventListener('click', function() {
     // Call the sortAllData function to sort all results alphabetically by name
+    this.classList.add('spin');
+    setTimeout(() => {
+        this.classList.remove('spin');
+    }, 1000);
     sortAllData();
 });
 

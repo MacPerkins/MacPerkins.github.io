@@ -10,11 +10,11 @@
 <body>
     <header>
         <div class="header">
-            <h2><a href="../index.html">The Star Wars Archive</a></h2>
+            <h2><a class="search-link" href="../index.html">The Star Wars Archive</a></h2>
         </div>
         <div class="sub-header">
-            <div><a href="../filter/index.html">Search by Filter</a></div>
-            <div><a href="./index.html">Search by Keyword</a></div>
+            <div><a class="search-link" href="../filter/index.html">Search by Filter</a></div>
+            <div><a class="search-link" href="./index.html">Search by Keyword</a></div>
         </div>
     </header>
     <main>
@@ -27,6 +27,9 @@
                 </form>
                 <div class="sorting">
                     <button id="sortByName">Sort by Name</button>
+                </div>
+                <div id="searchHistory">
+                    <h2>You have searched for: <span id="userSearch"></span></h2>
                 </div>
                 <ul id="group-container" class="group-list"></ul>
             </section>
